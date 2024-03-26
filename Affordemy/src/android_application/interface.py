@@ -11,6 +11,13 @@ class MainScreen(toga.Screen):
             on_press=self.on_button_click
         )
         self.main_box.add(self.button)
+        
+        # Add a button to the main screen
+        self.button = toga.Button(
+            "By the Dev!!",
+            on_press=self.on_button_click
+        )
+        self.main_box.add(self.button)
 
     def on_button_click(self, widget):
         print("Button was clicked!")
