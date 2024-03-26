@@ -1,0 +1,4 @@
+To run your application, type:
+
+    $ cd Affordemy
+    $ briefcase dev
