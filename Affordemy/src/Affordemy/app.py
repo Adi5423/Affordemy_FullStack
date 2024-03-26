@@ -1,41 +1,60 @@
 """
 Application to upload different paid courses 
 """
-import toga
-from toga.style import Pack
-from toga.style.pack import COLUMN, ROW
+import sys
+from kivy.app import App
+from kivy.uix.screenmanager import ScreenManager
+from kivy.core.window import Window
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
+from kivy.uix.screenmanager import Screen
 
-from android_application.interface import (
-    MainScreen,
-    AboutScreen,
-    SettingsScreen,
-)
+class MainScreen(Screen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.orientation = 'vertical'
+        self.padding = 10
+        self.spacing = 10
 
-class AndroidApplication(toga.App):
-    def startup(self):
-        """Construct and show the Toga application.
+        # Add a button to the main screen
+        self.button = Button(text='Click me!')
+        self.button.bind(on_press=self.on_button_click)
+        self.add_widget(self.button)
 
-        Usually, you would add your application to a main content box.
-        We then create a main window (with a name matching the app), and
-        show the main window.
-        """
-        self.screen_manager = toga.ScreenManager()
+        # Add a button to the main screen
+        self.button2 = Button(text='By the Dev!!')
+        self.button2.bind(on_press=self.on_button_click)
+        self.add_widget(self.button2)
 
-        # Add screens
-        self.screen_manager.add(MainScreen(name='main'))
-        self.screen_manager.add(AboutScreen(name='about'))
-        self.screen_manager.add(SettingsScreen(name='settings'))
+    def on_button_click(self, instance):
+        print("Button was clicked!")
 
-        # Set the main screen
-        self.screen_manager.current = 'main'
+class AboutScreen(Screen):
+    pass
 
-        main_box = toga.Box()
-        main_box.add(self.screen_manager)
+class SettingsScreen(Screen):
+    pass
 
-        self.main_window = toga.MainWindow(title=self.formal_name)
-        self.main_window.content = main_box
-        self.main_window.show()
+class AndroidApplication(App):
+    def build(self):
+        Window.clearcolor = (1, 1, 1, 1)  # White background color
+        Window.size = (500 , 300)    
+
+        sm = ScreenManager()
+        sm.add_widget(MainScreen(name='main'))  # Add the MainScreen to the ScreenManager
+        sm.add_widget(AboutScreen(name='about'))
+        sm.add_widget(SettingsScreen(name='settings'))
+        return sm
 
 
 def main():
-    return AndroidApplication()
+    Window.clearcolor = (1, 1, 1, 1)  # White background color
+    Window.size = (500 , 300)    
+    app = AndroidApplication()
+    app.run()
+
+if __name__ == '__main__':
+    main()
+
+# def main():
+    # return AndroidApplication()
