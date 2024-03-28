@@ -91,7 +91,7 @@ class SplashScreen(Screen):
         def on_touch_down(self, touch):
             self.fade_out(0)
             self.bind(on_touch_down=self.fade_out)
-            Clock.schedule_once(self.unbind_touch_event, 1)
+            Clock.schedule_once(self.switch_to_main, 1)
 
         self.bind(on_touch_down=on_touch_down)
 
@@ -107,17 +107,22 @@ class SplashScreen(Screen):
 
     def unbind_touch_event(self, *args):
         self.unbind(on_touch_down=self.fade_out)
+        
+    def switch_to_main(self, dt):
+        self.manager.current = 'main'
 
 class Affordemy(App):
     def build(self):
         Window.clearcolor = (1, 1, 1, 1)
         Window.size = (500, 500)
 
-        sm = ScreenManager(transition=FadeTransition())
+        sm = ScreenManager(transition=NoTransition())
         sm.add_widget(SplashScreen(name='splash'))
         sm.add_widget(MainScreen(name='main'))
         sm.add_widget(AboutScreen(name='about'))
         sm.add_widget(SettingsScreen(name='settings'))
+
+        return sm
 
         # Wrap the ScreenManager in FadeTransition
         custom_fade_trans = FadeTransition(duration=1.0)
