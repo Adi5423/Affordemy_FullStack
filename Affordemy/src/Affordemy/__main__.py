@@ -1,18 +1,18 @@
 # __main__.py
 import sys
-from kivy import *
-from kivy.app import App
+import threading
+import pyttsx3
 from kivy.clock import Clock
-from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.app import App
+from kivy.uix.screenmanager import ScreenManager, Screen , FadeTransition , NoTransition
 from kivy.core.window import Window
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.image import Image
 from kivy.uix.label import Label
-import pyttsx3
-import threading
+from kivy.animation import Animation
 
-# Speech start 
+# Speech start
 # Initialize the engine
 engine = pyttsx3.init()
 
@@ -23,7 +23,6 @@ engine.setProperty('voice', voices[1].id)
 def speak(text):
     engine.say(text)
     engine.runAndWait()
-    # engine.stop()
 
 class MainScreen(Screen):
     def __init__(self, **kwargs):
@@ -55,21 +54,25 @@ class MainScreen(Screen):
         self.add_widget(self.bottom_button)
 
     def show_main_screen(self, instance):
-        speak("Home button clicked!")
+        print("Home button clicked!")
+
     def show_main_preview(self, instance):
-        speak("Priview button clicked!")
+        print("Priview button clicked!")
+
     def show_main_Top_Courses(self, instance):
-        speak("Top Courses button clicked!")
+        print("Top Courses button clicked!")
+
     def show_main_Your_Profile(self, instance):
-        speak("Profile button clicked!")
+        print("Profile button clicked!")
+
     def show_main_Paid_For(self, instance):
-        speak("Paid For button clicked!")
+        print("Paid For button clicked!")
 
     def show_message(self, instance):
-        speak("No Such data to Update")
+        print("No Such data to Update")
 
     def show_dev_message(self, instance):
-        speak("Developed under Aditya and the production of Aistie")
+        print("Developed under Aditya and the production of Aistie")
 
 class AboutScreen(Screen):
     pass
@@ -77,42 +80,60 @@ class AboutScreen(Screen):
 class SettingsScreen(Screen):
     pass
 
+class SplashScreen(Screen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.image = Image(source='D://Python//Projects//Full Stack//Textures Logos//Affordemy_Start.png', opacity=0)
+        self.add_widget(self.image)
+
+        Clock.schedule_once(self.fade_in, 1)
+
+        def on_touch_down(self, touch):
+            self.fade_out(0)
+            self.bind(on_touch_down=self.fade_out)
+            Clock.schedule_once(self.unbind_touch_event, 1)
+
+        self.bind(on_touch_down=on_touch_down)
+
+    def fade_in(self, dt):
+        fade_in = Animation(opacity=1, duration=3)
+        fade_in.start(self.image)
+
+    def fade_out(self, dt, *args):
+        if self.image.opacity == 1:
+            fade_out = Animation(opacity=0, duration=3)
+            fade_out.bind(on_complete=self.unbind_touch_event)
+            fade_out.start(self.image)
+
+    def unbind_touch_event(self, *args):
+        self.unbind(on_touch_down=self.fade_out)
 
 class Affordemy(App):
     def build(self):
         Window.clearcolor = (1, 1, 1, 1)
         Window.size = (500, 500)
 
-        sm = ScreenManager()
+        sm = ScreenManager(transition=FadeTransition())
+        sm.add_widget(SplashScreen(name='splash'))
         sm.add_widget(MainScreen(name='main'))
         sm.add_widget(AboutScreen(name='about'))
         sm.add_widget(SettingsScreen(name='settings'))
 
-        # Start an event loop that runs in the background
-        self.event_loop_thread = threading.Thread(target=self.start_event_loop)
-        self.event_loop_thread.start()
+        # Wrap the ScreenManager in FadeTransition
+        custom_fade_trans = FadeTransition(duration=1.0)
+
+        def on_current(instance, current_screen, next_screen):
+            custom_fade_trans.current = instance.transition.direction
+            custom_fade_trans.target = next_screen
+            custom_fade_trans.start(instance)
+
+        sm.bind(current=on_current)
 
         return sm
 
-    def start_event_loop(self):
-        clock = Clock.schedule_interval(lambda dt: None, 1.0 / 60.0)
-        App.get_running_app().run()
-        Clock.unschedule(clock)
-
-    def stop_event_loop(self):
-        if self.event_loop_thread is not None and self.event_loop_thread.is_alive():
-            self.event_loop_thread.join()
-            self.event_loop_thread = None
-
-    def stop(self):
-        self.stop_event_loop()
-        super().stop()
-
 def main():
-    # speak("Welcome Sir!")
     app = Affordemy()
     app.run()
 
 if __name__ == '__main__':
-    app = Affordemy()
-    app.run()
+    main()
