@@ -108,6 +108,7 @@ class SplashScreen(Screen):
     def unbind_touch_event(self, *args):
         self.unbind(on_touch_down=self.fade_out)
         
+        
     def switch_to_main(self, dt):
         self.manager.current = 'main'
 
