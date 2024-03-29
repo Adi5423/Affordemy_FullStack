@@ -28,18 +28,18 @@ def speak(text):
 class LoginScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.orientation = 'vertical'
+        self.orientation = 'horizontal'
         self.background_color = (0.9, 1.0, 0.8, 1)
 
-        self.email_input_box = BoxLayout(size_hint=(None, None), width=300, height=200, pos_hint={'center_x': 0.5, 'center_y': 0.5})
+        self.email_input_box = BoxLayout(size_hint=(None, None), width=200, height=300, pos_hint={'center_x': 0.5, 'center_y': 0.5})
 
         self.email_label = Label(text='Email:', font_size=18, bold=True)
-        self.email_input = TextInput(multiline=False, font_size=16, size_hint=(None, None), width=300)
+        self.email_input = TextInput(multiline=False, font_size=16, size_hint=(None, None), width=150)
 
         self.password_label = Label(text='Password:', font_size=18, bold=True)
-        self.password_input = TextInput(multiline=False, password=True, font_size=16, size_hint=(None, None), width=300)
+        self.password_input = TextInput(multiline=False, password=True, font_size=16, size_hint=(None, None), width=150)
 
-        self.login_button = Button(text='Log in', font_size=18, bold=True, size_hint=(None, None), size=(150, 50), pos_hint={'center_x': 0.5})
+        self.login_button = Button(text='Log in', font_size=18, bold=True, size_hint=(None, None), size=(150, 50), pos_hint={'center_x': 0.5, 'center_y': 0.5})
 
         self.email_input_box.add_widget(self.email_label)
         self.email_input_box.add_widget(self.email_input)
