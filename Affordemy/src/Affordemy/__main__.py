@@ -29,22 +29,22 @@ class LoginScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.orientation = 'vertical'
-        self.background_color = (0.9, 1.0, 0.8, 1)
+        self.background_color = (247/255, 247/255, 247/255, 1)
 
         self.input_fields_box = BoxLayout(size_hint=(None, None), width=500, height=280, pos_hint={'top': 1 , 'center_x': 0.5}, spacing=10)
 
         self.email_box = BoxLayout(size_hint=(1, None), height=140)
 
-        self.email_label = Label(text='Email:', font_size=18, bold=True)
-        self.email_input = TextInput(multiline=False, font_size=16, size_hint=(1, None), height=40)
+        self.email_label = Label(text='Email', font_size=14, color=(110/255, 110/255, 110/255, 1), bold=True, halign='left', valign='middle')
+        self.email_input = TextInput(multiline=False, font_size=14, size_hint=(1, None), height=40, foreground_color=(0,0,0,1))
 
         self.email_box.add_widget(self.email_label)
         self.email_box.add_widget(self.email_input)
 
         self.password_box = BoxLayout(size_hint=(1, None), height=140)
 
-        self.password_label = Label(text='Password:', font_size=18, bold=True)
-        self.password_input = TextInput(multiline=False, password=True, font_size=16, size_hint=(1, None), height=40)
+        self.password_label = Label(text='Password', font_size=14, color=(110/255, 110/255, 110/255, 1), bold=True, halign='left', valign='middle')
+        self.password_input = TextInput(multiline=False, password=True, font_size=14, size_hint=(1, None), height=40, foreground_color=(0,0,0,1))
 
         self.password_box.add_widget(self.password_label)
         self.password_box.add_widget(self.password_input)
@@ -52,7 +52,7 @@ class LoginScreen(Screen):
         self.input_fields_box.add_widget(self.email_box)
         self.input_fields_box.add_widget(self.password_box)
 
-        self.login_button = Button(text='Log in', font_size=18, bold=True, size_hint=(None, None), size=(150, 50))
+        self.login_button = Button(text='Sign in', font_size=14, bold=True, size_hint=(None, None), size=(150, 50), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
 
         self.button_box = BoxLayout(size_hint=(None, None), width=150, height=50, pos_hint={'center_y': 0.4, 'x': 0.4})
         self.button_box.add_widget(self.login_button)
@@ -74,6 +74,7 @@ class LoginScreen(Screen):
             self.password_input.text = ''
         else:
             print('Please enter both email and password')
+
 
 class UiPage1Screen(Screen):
     def __init__(self, **kwargs):
