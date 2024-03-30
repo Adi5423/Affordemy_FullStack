@@ -33,9 +33,6 @@ class LoginScreen(Screen):
 
         self.input_fields_box = BoxLayout(size_hint=(None, None), width=500, height=280, pos_hint={'top': 1 , 'center_x': 0.5}, spacing=10)
 
-        self.title_label = Label(text='Sign in to Affordemy', font_size=20, color=(11/255, 152/255, 212/255, 1), bold=True, halign='center', valign='middle')
-        self.input_fields_box.add_widget(self.title_label)
-
         self.email_box = BoxLayout(size_hint=(1, None), height=140)
 
         self.email_label = Label(text='Email', font_size=14, color=(110/255, 110/255, 110/255, 1), bold=True, halign='left', valign='middle')
@@ -55,15 +52,13 @@ class LoginScreen(Screen):
         self.input_fields_box.add_widget(self.email_box)
         self.input_fields_box.add_widget(self.password_box)
 
-        self.button_box = BoxLayout(size_hint=(None, None), width=150, height=50, pos_hint={'center_y': 0.4, 'x': 0.4})
         self.login_button = Button(text='Sign in', font_size=14, bold=True, size_hint=(None, None), size=(150, 50), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
 
+        self.button_box = BoxLayout(size_hint=(None, None), width=150, height=50, pos_hint={'center_y': 0.4, 'x': 0.4})
         self.button_box.add_widget(self.login_button)
 
         self.add_widget(self.input_fields_box)
         self.add_widget(self.button_box)
-
-        self.login_button.bind(on_release=self.handle_login)
 
         self.login_button.bind(on_release=self.handle_login)
 
