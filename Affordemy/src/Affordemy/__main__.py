@@ -83,16 +83,28 @@ class UiPage1Screen(Screen):
         self.background_color = (0.5, 1, 0.5, 1)
 
         # Add menu
-        menu_box = BoxLayout(size_hint=(None, None), width=50, height=250, pos_hint={'top': 1.2, 'x': 0}, spacing=0, orientation='horizontal')
-        self.file_button = Button(text='File', font_size=8, bold=True, size_hint=(None, None), size=(50, 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
-        self.edit_button = Button(text='Edit', font_size=8, bold=True, size_hint=(None, None), size=(50, 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
-        self.help_button = Button(text='Help', font_size=8, bold=True, size_hint=(None, None), size=(50, 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
+        menu_box = BoxLayout(size_hint=(None, None), width=75, height=350, pos_hint={'x': 0 , 'y':.9}, spacing=0, orientation='horizontal')
+        self.file_button = Button(text='File', font_size=12, bold=True, size_hint=(None, None), size=(50, 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
+        self.edit_button = Button(text='Edit', font_size=12, bold=True, size_hint=(None, None), size=(50, 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
+        self.help_button = Button(text='Help', font_size=12, bold=True, size_hint=(None, None), size=(50, 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
 
+        child_file = BoxLayout(size_hint = (None,None) , width =50 , height =150 , pos_hint ={"top":1  , "x": 0} , orientation = "vertical")
+        self.profile_button = Button(text='Profile', font_size=12, bold=True, size_hint=(None, None), size=(25 , 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
+        self.courses_button = Button(text='Top Courses', font_size=10, bold=True, size_hint=(None, None), size=(25 , 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
+        self.running_button = Button(text='Running Courses', font_size=10, bold=True, size_hint=(None, None), size=(25, 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
+        self.payment_button = Button(text='Payment', font_size=10, bold=True, size_hint=(None, None), size=(25 , 20) , color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
+        
         menu_box.add_widget(self.file_button)
         menu_box.add_widget(self.edit_button)
         menu_box.add_widget(self.help_button)
 
+        child_file.add_widget(self.profile_button)
+        child_file.add_widget(self.courses_button)
+        child_file.add_widget(self.running_button)
+        child_file.add_widget(self.payment_button)
+        
         self.add_widget(menu_box)
+        self.add_widget(child_file)
 
     def update_background_color(self):
         self.background_color = (0.9, 1.0, 0.8, 1)
