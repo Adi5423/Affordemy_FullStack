@@ -83,10 +83,10 @@ class UiPage1Screen(Screen):
         self.background_color = (0.5, 1, 0.5, 1)
 
         # Add menu
-        menu_box = BoxLayout(size_hint=(None, None), width=50, height=250, pos_hint={'top': 1.20, 'x': 0}, spacing=2.5, orientation='horizontal')
-        self.file_button = Button(text='File', font_size=14, bold=True, size_hint=(None, None), size=(100, 40), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
-        self.edit_button = Button(text='Edit', font_size=14, bold=True, size_hint=(None, None), size=(100, 40), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
-        self.help_button = Button(text='Help', font_size=14, bold=True, size_hint=(None, None), size=(100, 40), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
+        menu_box = BoxLayout(size_hint=(None, None), width=50, height=250, pos_hint={'top': 1.2, 'x': 0}, spacing=0, orientation='horizontal')
+        self.file_button = Button(text='File', font_size=8, bold=True, size_hint=(None, None), size=(50, 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
+        self.edit_button = Button(text='Edit', font_size=8, bold=True, size_hint=(None, None), size=(50, 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
+        self.help_button = Button(text='Help', font_size=8, bold=True, size_hint=(None, None), size=(50, 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
 
         menu_box.add_widget(self.file_button)
         menu_box.add_widget(self.edit_button)
