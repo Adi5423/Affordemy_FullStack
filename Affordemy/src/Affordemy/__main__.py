@@ -45,6 +45,12 @@ class LoginScreen(Screen):
         super().__init__(**kwargs)
         self.orientation = 'vertical'
         self.background_color = (247/255, 247/255, 247/255, 1)
+        
+        # Sign in label 
+        sigin_label = Label(text='[i]Sign in to Affordemy[/i]', color=(0, 0.65098039215686276, 1, 1), font_size=45, bold=True, pos_hint={'x': 0, 'y': 0.35} , markup=True, font_name='arial.ttf')
+        # add the error message label to the main window, with a size of 13
+        self.add_widget(sigin_label)
+
 
         self.input_fields_box = BoxLayout(size_hint=(None, None), width=500, height=280, pos_hint={'top': 1 , 'center_x': 0.5}, spacing=10)
 
@@ -69,8 +75,7 @@ class LoginScreen(Screen):
 
         self.login_button = Button(text='Sign in', font_size=14, bold=True, size_hint=(None, None), size=(150, 50), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
         self.autofill_button = Button(text='Autofill', font_size=14, bold=True, size_hint=(None, None), size=(150, 50), color=(0, 0, 0, 1), background_color=(0, 147, 184, 1))
-        
-        
+
         self.button_box = BoxLayout(size_hint=(None, None), width=150, height=50, pos_hint={'center_y': 0.4, 'x': 0.4})
         self.button_box.add_widget(self.login_button)
 
@@ -79,23 +84,30 @@ class LoginScreen(Screen):
 
         self.login_button.bind(on_release=self.handle_login)
         
-
-            
         
-
 
     def handle_login(self, instance):
         email = self.email_input.text
         password = self.password_input.text
 
-        if email and password:
-            print("Successful!")
+        if not email or not password:
+            # create a red error message label
+            error_label = Label(text='Please enter both email and password', color=(255/255, 0, 0, 1), font_size=13)
+            # add the error message label to the main window, with a size of 13
+            self.add_widget(error_label)
+            # remove the error message label after 3 seconds
+            Clock.schedule_once(lambda dt: self.remove_widget(error_label), 3)
+        else:
+            # create a sucesful message label
+            pass_label = Label(text='Signed in', color=(0, 1, 0, 1) , font_size=13)
+            # add the sucesful message label to the main window, with a size of 13
+            self.add_widget(pass_label)
+            # remove the sucesful message label after 3 seconds
+            Clock.schedule_once(lambda dt: self.remove_widget(pass_label), 3)
             self.manager.get_screen('uiPage1').update_background_color()
             self.manager.current = 'uiPage1'
             self.email_input.text = ''
             self.password_input.text = ''
-        else:
-            print('Please enter both email and password')
 
 
 class UiPage1Screen(Screen):
@@ -105,15 +117,15 @@ class UiPage1Screen(Screen):
 
         # Add menu
         menu_box = BoxLayout(size_hint=(None, None), width=75, height=350, pos_hint={"y":.97  , "x": 0.}, spacing=0, orientation='horizontal')
-        self.file_button = Button(text='File', font_size=12, bold=True, size_hint=(None, None), size=(50, 25), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
-        self.edit_button = Button(text='Edit', font_size=12, bold=True, size_hint=(None, None), size=(50, 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
-        self.help_button = Button(text='Help', font_size=12, bold=True, size_hint=(None, None), size=(50, 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
+        self.file_button = Button(text='File', font_size=19, bold=True, size_hint=(None, None), size=(50, 25), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
+        self.edit_button = Button(text='Edit', font_size=19, bold=True, size_hint=(None, None), size=(50, 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
+        self.help_button = Button(text='Help', font_size=19, bold=True, size_hint=(None, None), size=(50, 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
 
         child_file = BoxLayout(size_hint = (None,None) , width =50 , height =150 , pos_hint ={"x":0  , "y":.88} , orientation = "vertical")
-        self.profile_button = Button(text='Profile', font_size=12, bold=True, size_hint=(None, None), size=(40 , 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
-        self.courses_button = Button(text='Top Courses', font_size=8, bold=True, size_hint=(None, None), size=(40 , 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
-        self.running_button = Button(text='Running Courses', font_size=10-2, bold=True, size_hint=(None, None), size=(40, 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
-        self.payment_button = Button(text='Payment', font_size=10-1, bold=True, size_hint=(None, None), size=(40 , 20) , color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
+        self.profile_button = Button(text='Profile', font_size=13, bold=True, size_hint=(None, None), size=(40 , 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
+        self.courses_button = Button(text='Top Courses', font_size=12, bold=True, size_hint=(None, None), size=(45 , 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
+        self.running_button = Button(text='Running Courses', font_size=12, bold=True, size_hint=(None, None), size=(45, 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
+        self.payment_button = Button(text='Payment', font_size=12, bold=True, size_hint=(None, None), size=(44 , 20) , color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
         
         menu_box.add_widget(self.file_button)
         menu_box.add_widget(self.edit_button)
