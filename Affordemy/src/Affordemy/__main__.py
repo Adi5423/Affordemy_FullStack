@@ -92,14 +92,14 @@ class LoginScreen(Screen):
 
         if not email or not password:
             # create a red error message label
-            error_label = Label(text='Please enter both email and password', color=(255/255, 0, 0, 1), font_size=13)
+            error_label = Label(text='Please enter both email and password', color=(255/255, 0, 0, 1), font_size=20)
             # add the error message label to the main window, with a size of 13
             self.add_widget(error_label)
             # remove the error message label after 3 seconds
             Clock.schedule_once(lambda dt: self.remove_widget(error_label), 3)
         else:
             # create a sucesful message label
-            pass_label = Label(text='Signed in', color=(0, 1, 0, 1) , font_size=13)
+            pass_label = Label(text='Signed in', color=(0, 1, 0, 1) , font_size=17)
             # add the sucesful message label to the main window, with a size of 13
             self.add_widget(pass_label)
             # remove the sucesful message label after 3 seconds
