@@ -13,6 +13,8 @@ from kivy.uix.image import Image
 from kivy.uix.label import Label
 from kivy.animation import Animation
 from kivy.uix.textinput import TextInput
+import numpy as np
+import random 
 
 # Speech start
 # Initialize the engine
@@ -25,6 +27,7 @@ engine.setProperty('voice', voices[1].id)
 def speak(text):
     engine.say(text)
     engine.runAndWait()
+    
 
 class LoginScreen(Screen):
     def __init__(self, **kwargs):
@@ -53,7 +56,13 @@ class LoginScreen(Screen):
         self.input_fields_box.add_widget(self.email_box)
         self.input_fields_box.add_widget(self.password_box)
 
-        self.login_button = Button(text='Sign in', font_size=14, bold=True, size_hint=(None, None), size=(150, 50), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
+        self.login_button = Button(text='Sign in', font_size=14, bold=True, size_hint=(None, None), size=(200, 100), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
+        
+        self.autofill_button = Button(text='Autofill', font_size=14, bold=True, size_hint=(None, None), size=(150, 50), color=(0, 0, 0, 1), background_color=(0, 147, 184, 1))
+
+        self.autofil_box = BoxLayout(size_hint=(None, None), width=150, height=50, pos_hint={'center_y': 0.3, 'x': 0.4})
+        self.button_box.add_widget(self.autofill_button)
+
 
         self.button_box = BoxLayout(size_hint=(None, None), width=150, height=50, pos_hint={'center_y': 0.4, 'x': 0.4})
         self.button_box.add_widget(self.login_button)
@@ -62,6 +71,15 @@ class LoginScreen(Screen):
         self.add_widget(self.button_box)
 
         self.login_button.bind(on_release=self.handle_login)
+        
+        self.autofill_button.bind(on_release=self.handle_autofill)
+
+    def handle_autofill(self, instance):
+        if not self.email_input.text and not self.password_input.text:
+            self.email_input.text = ''.join(random.choices('abcdefghijklmnopqrstuvwxyz@ABCDEFGHIJKLMNOPQRSTUVWXYZ.%+-_', k=10))
+            self.password_input.text = ''.join(random.choices('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()', k=10))
+        
+
 
     def handle_login(self, instance):
         email = self.email_input.text
@@ -83,12 +101,12 @@ class UiPage1Screen(Screen):
         self.background_color = (0.5, 1, 0.5, 1)
 
         # Add menu
-        menu_box = BoxLayout(size_hint=(None, None), width=75, height=350, pos_hint={'x': 0 , 'y':.9}, spacing=0, orientation='horizontal')
+        menu_box = BoxLayout(size_hint=(None, None), width=75, height=350, pos_hint={"y":.97  , "x": 0.}, spacing=0, orientation='horizontal')
         self.file_button = Button(text='File', font_size=12, bold=True, size_hint=(None, None), size=(50, 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
         self.edit_button = Button(text='Edit', font_size=12, bold=True, size_hint=(None, None), size=(50, 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
         self.help_button = Button(text='Help', font_size=12, bold=True, size_hint=(None, None), size=(50, 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
 
-        child_file = BoxLayout(size_hint = (None,None) , width =50 , height =150 , pos_hint ={"top":1  , "x": 0} , orientation = "vertical")
+        child_file = BoxLayout(size_hint = (None,None) , width =50 , height =150 , pos_hint ={"x":0  , "y":1} , orientation = "vertical")
         self.profile_button = Button(text='Profile', font_size=12, bold=True, size_hint=(None, None), size=(25 , 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
         self.courses_button = Button(text='Top Courses', font_size=10, bold=True, size_hint=(None, None), size=(25 , 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
         self.running_button = Button(text='Running Courses', font_size=10, bold=True, size_hint=(None, None), size=(25, 20), color=(255/255, 255/255, 255/255, 1), background_color=(0/255, 147/255, 184/255, 1))
