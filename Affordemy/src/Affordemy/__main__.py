@@ -84,7 +84,6 @@ class LoginScreen(Screen):
 
         self.login_button.bind(on_release=self.handle_login)
         
-        
 
     def handle_login(self, instance):
         email = self.email_input.text
@@ -155,7 +154,7 @@ class UiPage1Screen(Screen):
 class SplashScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.image = Image(source='D://Python//Projects//Full Stack//Textures Logos//Affordemy_Start.png', opacity=0)
+        self.image = Image(source='Textures Logos//Affordemy_Start.png', opacity=0)
         self.add_widget(self.image)
 
         Clock.schedule_once(self.fade_in, 1)
